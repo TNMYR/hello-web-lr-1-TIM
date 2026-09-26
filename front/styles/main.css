@@ -1,0 +1,175 @@
+/* ===== Палитра ===== */
+:root {
+  --orange: #ff7a1a;
+  --orange-dark: #e05f00;
+  --gray-100: #f5f6f7;
+  --gray-300: #d5d8dc;
+  --gray-500: #8a9099;
+  --gray-700: #3a3f45;
+  --mint: #4fd1b3;
+  --mint-dark: #2fae91;
+  --text: #23272b;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--gray-100);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== Верхнее меню ===== */
+.header-nav-row {
+  background: var(--gray-700);
+  padding: 12px 20px;
+}
+
+.header-nav-row nav {
+  display: flex;
+  gap: 20px;
+}
+
+.header-nav-row a {
+  color: var(--gray-100);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background .2s, color .2s;
+}
+
+.header-nav-row a:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+/* ===== Основной контент ===== */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.content-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* ===== Левый сайдбар ===== */
+.left.columns {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.newies,
+.dops {
+  background: #fff;
+  border-left: 4px solid var(--mint);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+
+.newies {
+  border-left-color: var(--orange);
+}
+
+.newies p,
+.dops p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.newies img,
+.dops img {
+  display: block;
+}
+
+/* ===== Main ===== */
+main {
+  flex: 1;
+  min-width: 0;              /* важно: иначе flex-элемент не сжимается */
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+main > p {
+  margin: 0 0 16px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+/* ===== Мозаика карточек ===== */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;       /* квадратные карточки — ровная мозаика */
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, background .15s, border-color .15s;
+}
+
+.game img {
+  width: 75px;
+  height: 75px;
+  transition: transform .15s, filter .15s;
+}
+
+/* Наведение — оранжевый акцент */
+.game:hover {
+  background: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 4px 14px rgba(255,122,26,.25);
+  transform: translateY(-2px);
+}
+
+.game:hover img {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 4px var(--orange));
+}
+
+/* Чётные карточки — мятный акцент (для разнообразия) */
+.game:nth-child(even):hover {
+  border-color: var(--mint);
+  box-shadow: 0 4px 14px rgba(79,209,179,.3);
+}
+
+.game:nth-child(even):hover img {
+  filter: drop-shadow(0 0 4px var(--mint));
+}
+
+/* ===== Футер ===== */
+.footer-wrapper {
+  background: var(--gray-700);
+  color: var(--gray-100);
+  padding: 20px;
+  border-top: 3px solid var(--orange);
+}
+
+.footer a {
+  color: var(--mint);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--orange);
+}
