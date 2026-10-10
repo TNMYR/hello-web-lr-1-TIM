@@ -1,55 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gamex</title>
     <link href="styles/main.css" rel="stylesheet" />
   </head>
 
   <body>
     <div class="page">
-      <div class="header-nav-row">
+      <header class="header-nav-row">
         <nav>
           <a href="./pages/Game.html">Games</a>
           <a href="./pages/Audio.html">Audio</a>
           <a href="./pages/Portal.html">Portal</a>
           <a href="./pages/Community.html">Community</a>
         </nav>
-      </div>
+      </header>
 
       <div class="main-content">
         <div class="content-row">
-          <div class="left columns">
+          <aside class="left columns">
             <div class="newies" id="newies-blox">
+              <h3>Новости</h3>
               <p>Здесь блочный элемент сбоку для срочных новостей</p>
-              <img src="icon/news-svgrepo-com.svg" width="20" height="20" alt="новости">
+              <img src="icon/news-svgrepo-com.svg" width="20" height="20" alt="">
             </div>
             <div class="dops" id="dops-blox">
+              <h3>Допы</h3>
               <p>Здесь допы для заполнености</p>
-              <img src="icon/news-svgrepo-com.svg" width="20" height="20" alt="допы">
+              <img src="icon/news-svgrepo-com.svg" width="20" height="20" alt="">
             </div>
-          </div>
+          </aside>
 
           <main>
-            <p>Здесь главный выгружаемый контент</p>
+            <h1>Игры</h1>
 
             <div class="games-grid">
-              <div class="game"><img src="icon/gamepad-svgrepo-com.svg" width="75" height="75" alt="игра"></div>
-              <div class="game"><img src="icon/gamepad-svgrepo-com.svg" width="75" height="75" alt="игра"></div>
-              <div class="game"><img src="icon/gamepad-svgrepo-com.svg" width="75" height="75" alt="игра"></div>
-              <div class="game"><img src="icon/gamepad-svgrepo-com.svg" width="75" height="75" alt="игра"></div>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
+              <a class="game" href="#">
+                <div class="game-cover">
+                  <img src="icon/gamepad-svgrepo-com.svg" alt="">
+                </div>
+                <div class="game-info">
+                  <h3 class="game-title">Название игры</h3>
+                  <p class="game-desc">Короткое описание в одну-две строки</p>
+                </div>
+              </a>
             </div>
           </main>
         </div>
       </div>
 
-      <div class="footer-wrapper">
-        <div class="footer">
-          <footer>
-            <a>Футер здесь</a>
-          </footer>
-        </div>
-      </div>
+      <footer class="footer-wrapper">
+        <a href="#">Футер здесь</a>
+      </footer>
     </div>
   </body>
 </html>

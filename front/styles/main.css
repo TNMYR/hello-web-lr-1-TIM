@@ -9,7 +9,13 @@
   --mint: #4fd1b3;
   --mint-dark: #2fae91;
   --text: #23272b;
+  --radius: 10px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 14px rgba(0,0,0,.10);
 }
+
+/* Предсказуемые размеры */
+* { box-sizing: border-box; }
 
 html, body {
   height: 100%;
@@ -17,23 +23,29 @@ html, body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   background: var(--gray-100);
+  line-height: 1.45;
 }
 
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;      /* фолбэк для мобильных Safari/Chrome */
 }
 
 /* ===== Верхнее меню ===== */
 .header-nav-row {
   background: var(--gray-700);
   padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header-nav-row nav {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .header-nav-row a {
@@ -44,14 +56,19 @@ html, body {
   transition: background .2s, color .2s;
 }
 
-.header-nav-row a:hover {
+.header-nav-row a:hover,
+.header-nav-row a:focus-visible {
   background: var(--orange);
   color: #fff;
+  outline: none;
 }
 
 /* ===== Основной контент ===== */
 .main-content {
   flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -74,87 +91,180 @@ html, body {
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s, box-shadow .2s;
 }
 
-.newies {
-  border-left-color: var(--orange);
+.newies { border-left-color: var(--orange); }
+
+.newies h3,
+.dops h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: var(--gray-700);
 }
 
 .newies p,
 .dops p {
   margin: 0 0 8px;
   font-size: 14px;
-  color: var(--gray-700);
+  color: var(--gray-500);
 }
 
 .newies img,
-.dops img {
-  display: block;
-}
+.dops img { display: block; }
 
 /* ===== Main ===== */
 main {
   flex: 1;
-  min-width: 0;              /* важно: иначе flex-элемент не сжимается */
+  min-width: 0;
   background: #fff;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  box-shadow: var(--shadow-sm);
 }
 
-main > p {
+main > h1 {
   margin: 0 0 16px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--gray-700);
 }
 
+
+
+
+
 /* ===== Мозаика карточек ===== */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 14px;
+  grid-template-columns: repeat(2, 1fr);   /* мобилка по умолчанию */
 }
 
+@media (min-width: 480px) {
+  .games-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .games-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .games-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (min-width: 1440px) {
+  .games-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* Карточка игры: обложка сверху, текст снизу */
 .game {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;       /* квадратные карточки — ровная мозаика */
+  flex-direction: column;         /* вертикальная раскладка */
   background: var(--gray-100);
   border: 1px solid var(--gray-300);
-  border-radius: 10px;
+  border-radius: var(--radius);
+  overflow: hidden;               /* чтобы обложка не вылезала за скруглённые углы */
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: transform .15s, box-shadow .15s, background .15s, border-color .15s;
 }
 
-.game img {
-  width: 75px;
-  height: 75px;
+/* Обложка — квадратная зона с иконкой по центру */
+.game-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;            /* квадрат как раньше, но только для обложки */
+  background: var(--gray-100);
+  transition: background .15s;
+}
+
+.game-cover img {
+  width: 55%;
+  height: auto;
+  aspect-ratio: 1 / 1;
   transition: transform .15s, filter .15s;
 }
 
-/* Наведение — оранжевый акцент */
-.game:hover {
+/* Текстовый блок */
+.game-info {
+  padding: 8px 10px 10px;
   background: #fff;
+  border-top: 1px solid var(--gray-300);
+  transition: border-color .15s;
+}
+
+/* Заголовок игры */
+.game-title {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  line-height: 1.2;
+  /* Обрезаем в одну строку, если длинно */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Описание */
+.game-desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gray-500);
+  line-height: 1.3;
+  /* Максимум 2 строки — обрезается с многоточием */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ховер только там, где есть мышь */
+@media (hover: hover) {
+  .game:hover {
+    background: #fff;
+    border-color: var(--orange);
+    box-shadow: 0 4px 14px rgba(255,122,26,.25);
+    transform: translateY(-2px);
+  }
+
+  .game:hover .game-cover {
+    background: #fff;
+  }
+
+  .game:hover .game-cover img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 4px var(--orange));
+  }
+
+  .game:hover .game-info {
+    border-top-color: var(--orange);
+  }
+
+  /* Чётные — мятный акцент */
+  .game:nth-child(even):hover {
+    border-color: var(--mint);
+    box-shadow: 0 4px 14px rgba(79,209,179,.3);
+  }
+
+  .game:nth-child(even):hover .game-cover img {
+    filter: drop-shadow(0 0 4px var(--mint));
+  }
+
+  .game:nth-child(even):hover .game-info {
+    border-top-color: var(--mint);
+  }
+}
+
+/* Фокус с клавиатуры */
+.game:focus-visible {
   border-color: var(--orange);
-  box-shadow: 0 4px 14px rgba(255,122,26,.25);
-  transform: translateY(-2px);
-}
-
-.game:hover img {
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 4px var(--orange));
-}
-
-/* Чётные карточки — мятный акцент (для разнообразия) */
-.game:nth-child(even):hover {
-  border-color: var(--mint);
-  box-shadow: 0 4px 14px rgba(79,209,179,.3);
-}
-
-.game:nth-child(even):hover img {
-  filter: drop-shadow(0 0 4px var(--mint));
+  box-shadow: 0 0 0 3px rgba(255,122,26,.3);
+  outline: none;
 }
 
 /* ===== Футер ===== */
@@ -163,13 +273,53 @@ main > p {
   color: var(--gray-100);
   padding: 20px;
   border-top: 3px solid var(--orange);
+  text-align: center;
 }
 
-.footer a {
+.footer-wrapper a {
   color: var(--mint);
   text-decoration: none;
+  transition: color .2s;
 }
 
-.footer a:hover {
+.footer-wrapper a:hover {
   color: var(--orange);
+}
+
+/* ===== Планшеты (узкие) ===== */
+@media (max-width: 900px) {
+  .left.columns { width: 180px; }
+}
+
+/* ===== Телефоны ===== */
+@media (max-width: 640px) {
+  .main-content { padding: 12px; }
+
+  .content-row {
+    flex-direction: column;   /* сайдбар над main */
+    gap: 12px;
+  }
+
+  .left.columns {
+    width: 100%;
+    display: flex;            /* карточки новостей рядом друг с другом */
+    gap: 12px;
+  }
+
+  .newies,
+  .dops {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  main > h1 { font-size: 18px; }
+}
+
+/* ===== Совсем узкие (старые телефоны) ===== */
+@media (max-width: 380px) {
+  .header-nav-row { padding: 10px 12px; }
+  .header-nav-row nav { gap: 8px; }
+  .header-nav-row a { padding: 5px 8px; font-size: 14px; }
+
+  .left.columns { flex-direction: column; }   /* сайдбар снова в столбик */
 }
